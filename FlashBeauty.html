@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Beauty - Servicios de Belleza a Domicilio</title>
+    <link rel=icon href="images/favicon.png" type="imagex-icon"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ff3366;
+            padding: 1rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo h1 {
+            font-size: 1.8rem;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        header nav ul li {
+            margin: 0 15px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        header nav ul li .btn {
+            background-color: white;
+            color: #ff3366;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+/* Estilos básicos */
+ul {
+    list-style: none;
+    display: flex;
+    position: relative;
+}
+
+ul li {
+    position: relative;
+    margin: 0 15px;
+}
+
+.submenu-items{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    background-color: #ff3366; /* Color de fondo uniforme */
+    border-radius: 5px;
+}
+
+/* Ocultar dropdowns por defecto */
+ul li .dropdown, ul li .submenu-items {
+    display: none;
+    position: absolute;
+    background-color: #ff3366;
+    color: white;
+    padding: 1rem;
+    border-radius: 5px;
+    z-index: 1000;
+    min-width: 200px; /* Ajustar ancho */
+}
+
+/* Mostrar submenú al pasar el mouse por Servicios */
+ul li:hover .dropdown {
+    display: block;
+}
+
+/* Mostrar sub-items solo al pasar sobre Mujeres u Hombres */
+.submenu:hover .submenu-items {
+    display: block;
+    position: absolute;
+    left: 100%; /* Submenú alineado a la derecha */
+    top: 0;
+}
+
+/* Estilo para los sub-items */
+ul li .dropdown li a, ul li .submenu-items li a {
+    color: white;
+    display: block;
+    padding: 0.5rem 0;
+    text-decoration: none;
+}
+
+/* Cambio de color en hover */
+.submenu-items ul li a:hover, ul li .submenu-items a:hover {
+    background-color: #ff6699; /* Color más claro para hover */
+    color: white;
+}
+
+.dropdown ul li a:hover, ul li .submenu-items a:hover {
+    background-color: #ff6699; /* Color más claro para hover */
+    color: white;
+}
+
+        .hero {
+            background-image: url('images/banner.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+        }
+
+        .hero p {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+
+        .search-form input {
+            padding: 1rem;
+            margin-right: 1rem;
+            border: none;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        .search-form button {
+            padding: 1rem;
+            background-color: #ff3366;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+.about {
+    padding: 3rem 1rem;
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+.about-container {
+    max-width: 800px;
+    width: auto;
+    margin: 0 auto;
+}
+
+.about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.about p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+/* Estilo para el contenedor del chatbot */
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Botón flotante con fondo transparente, borde y estilo circular */
+.chatbot-button {
+    background-color: rgba(255, 255, 255, 0.3); /* Fondo transparente */
+    border-radius: 50%; /* Forma circular */
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #fff; /* Borde colorido */
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: rgba(255, 51, 102, 0.1); /* Efecto hover */
+}
+
+.chat-icon {
+    width: 50px;
+    height: 50px;
+}
+
+/* Ventana emergente del chat */
+.chat-popup {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #000;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Encabezado del popup de chat */
+.chat-header {
+    background-color: #335;
+    color: white;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h4 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.close-btn {
+    font-size: 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+}
+
+/* Cuerpo del chat */
+.chat-body {
+    padding: 10px;
+    font-size: 0.9rem;
+    color: #333;
+    overflow-y: auto;
+    max-height: 150px;
+}
+
+/* Pie de chat con el campo de entrada */
+.chat-footer {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+
+.chat-footer input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.chat-footer button {
+    background-color: #ff3366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chat-footer button:hover {
+    background-color: #ff668a;
+}
+
+
+        .benefits {
+            display: flex;
+            justify-content: space-around;
+            padding: 2rem;
+            background-color: #f7f7f7;
+        }
+
+        .benefit-item {
+            text-align: center;
+        }
+
+        .benefit-item img {
+            width: 10%;
+        }
+
+        .services {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .service-card {
+            display: inline-block;
+            width: 250px;
+            margin: 1rem;
+        }
+
+        .service-card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .service-card button {
+            padding: 0.5rem;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .testimonials {
+            background-color: #f7f7f7;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Estilos para la sección de suscripción al boletín */
+.newsletter {
+    background-color: #ff3366;
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.newsletter-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.newsletter h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.newsletter p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.newsletter-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.newsletter-form input[type="email"] {
+    padding: 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    width: 70%;
+    margin-right: 10px;
+}
+
+.newsletter-form button {
+    padding: 1rem 2rem;
+    background-color: white;
+    color: #ff3366;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+
+}
+
+.newsletter-form button:hover {
+    background-color: #ff3366;
+    color: white;
+    border: 1px solid #fff;
+}
+
+@media (max-width: 768px) {
+    .newsletter-form {
+        flex-direction: column;
+    }
+
+    .newsletter-form input[type="email"] {
+        width: 100%;
+        margin: 0 0 10px 0;
+    }
+
+    .newsletter-form button {
+        width: 100%;
+    }
+}
+
+
+        .testimonial-item {
+            margin: 1rem 0;
+            font-style: italic;
+        }
+
+/* Estilos generales del footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    font-size: 14px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 90px;
+}
+
+.footer-links{
+    flex-direction: column;
+    background-color: transparent;
+    color: white;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 20px;
+    text-align: center;
+    height: 90px;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+}
+
+.footer-section img {
+     width: 50px;
+     cursor: pointer;
+}
+
+.footer-section .social-icon{
+     width: 9%;
+     cursor: pointer;
+}
+
+
+/* Iconos de redes sociales */
+.social-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 10px;
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+}
+
+/* Estilos para enlaces de Política de Privacidad y Términos y Condiciones */
+.privacy-link,
+.terms-link {
+    display: block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.privacy-link:hover,
+.terms-link:hover {
+    color: #ff3366; /* Cambia el color al pasar el mouse por encima */
+}
+
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+
+        @media (max-width: 768px) {
+            .benefits {
+                flex-direction: column;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+
+        /* Estilos para el popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background-image: url('images/banner2.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 500px;
+            color: #fff;
+            text-shadow: 2px 2px #333;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .popup-content input {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .popup-content button {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #ff3366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .popup-content select {
+            width: 100%;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+            font-size: 1rem;
+        }
+
+        .close-popup {
+            text-align: right;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Estilos para el Popup */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.coupon {
+    background-color: rgba(51, 51, 51, 0.8); 
+    padding: 2rem;
+    border-radius: 10px;
+    color: white;
+}
+
+.coupon h2 {
+    margin-bottom: 1rem;
+}
+
+.coupon p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.use-offer-btn {
+    padding: 0.7rem 1.5rem;
+    background-color: white;
+    color: #ff3366;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.use-offer-btn:hover {
+    background-color: #ff6686;
+    color: white;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #fff;
+    text-shadow: 1px 1px #558abb;
+    font-size: 30px;
+}
+
+.popup-content .close-btn:hover {
+    color: #ff6686;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <h1>Flash Beauty</h1>
+        </div>
+        <nav>
+<ul>
+    <li><a href="#FlashBeauty.html">Inicio</a></li>
+    
+<!-- Menú desplegable para Servicios -->
+<li class="dropdown">
+    <a href="#">Servicios</a>
+    <ul class="dropdown">
+        <li class="submenu">
+            <a href="#">Servicios para Mujeres</a>
+            <ul class="submenu-items">
+                <li><a href="#">Pestaña</a></li>
+                <li><a href="#">Pigmentación</a></li>
+                <li><a href="#">Manicura</a></li>
+                <li><a href="#">Pedicura</a></li>
+                <li><a href="#">Depilación</a></li>
+                <li><a href="#">Peluquería</a></li>
+            </ul>
+        </li>
+        <li class="submenu">
+            <a href="#">Servicios para Hombres</a>
+            <ul class="submenu-items">
+                <li><a href="#">Corte de cabello</a></li>
+                <li><a href="#">Cuidado Facial</a></li>
+                <li><a href="#">Manicura</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
+
+<!-- Menú desplegable para Proveedores -->
+<li class="dropdown">
+    <a href="#">Proveedores</a>
+    <ul class="dropdown">
+        <li><a href="#">Glam Beauty</a></li>
+        <li><a href="#">Beauty Place</a></li>
+        <li><a href="#">Bogue Salon y Spa</a></li>
+        <li><a href="#">Los Baberos RD</a></li>
+        <li><a href="#">Caballeros Urbanos</a></li>
+    </ul>
+</li>
+
+
+    
+    <li><a href="#" id="offersBtn">Ofertas</a></li>
+    <li><a href="#">Contacto</a></li>
+    <li><a href="#" class="btn" id="loginBtn">Iniciar Sesión</a></li>
+    <li><a href="#" class="btn" id="registerBtn">Regístrate</a></li>
+</ul>
+
+        </nav>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Servicios de Belleza y Cuidado Personal a tu Puerta</h2>
+            <p>Rápido,  Facil y Seguro. ¡Reserva ahora!</p>
+            <form class="search-form">
+                <input type="text" placeholder="¿Qué servicio necesitas?" />
+                <input type="text" placeholder="Ingresa tu ubicación" />
+                <button type="submit">Buscar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Información sobre Flash Beauty -->
+<section class="about">
+    <div class="about-container">
+        <h2>Conoce Flash Beauty</h2>
+        <p>
+            Flash Beauty es tu destino para descubrir lo último en belleza y cuidado personal. 
+            Nuestro objetivo es ofrecer servicios de belleza excepcionales a través de nuestra aplicación, 
+            brindando a nuestros clientes la mejor experiencia de cuidado personal.
+        </p>
+    </div>
+</section>
+
+    <!-- Beneficios -->
+    <section class="benefits">
+        <div class="benefit-item">
+            <img src="images/rapido.png" alt="Rápido y Fácil">
+            <h3>Rápido y Fácil</h3>
+            <p>Encuentra proveedores cercanos en minutos.</p>
+        </div>
+        <div class="benefit-item">
+            <img src="images/personalizado.png" alt="Personalizado">
+            <h3>Personalizado</h3>
+            <p>Elige el proveedor que mejor se adapte a tus necesidades.</p>
+        </div>
+        <div class="benefit-item">
+            <img src="images/confiable.png" alt="Confiable">
+            <h3>Confiable</h3>
+            <p>Lee reseñas de otros usuarios antes de confirmar.</p>
+        </div>
+    </section>
+
+    <!-- Servicios Populares -->
+    <section class="services">
+        <h2>Servicios Populares</h2>
+        <div class="service-card">
+            <img src="images/maquillaje.jpg" alt="Manicura">
+            <h3>Maquillaje</h3>
+            <button>Ver proveedores</button>
+        </div>
+        <div class="service-card">
+            <img src="images/peluqueria.jpg" alt="Peluquería">
+            <h3>Peluquería</h3>
+            <button>Ver proveedores</button>
+        </div>
+        <div class="service-card">
+            <img src="images/manicura.jpg" alt="Manicura">
+            <h3>Manicura</h3>
+            <button>Ver proveedores</button>
+        </div>
+        <div class="service-card">
+            <img src="images/masajes.jpg" alt="Masajes">
+            <h3>Masajes</h3>
+            <button>Ver proveedores</button>
+        </div>
+    </section>
+
+<!-- Botón flotante de Chatbot -->
+<div class="chatbot-container">
+    <div class="chatbot-button" id="chatbotButton">
+        <img src="images/chat-icon.png" alt="Chat" class="chat-icon">
+    </div>
+    <div class="chat-popup" id="chatPopup">
+        <div class="chat-header">
+            <h4>Chatea con nosotros</h4>
+            <span id="closeChatPopup" class="close-btn">&times;</span>
+        </div>
+        <div class="chat-body">
+            <p>¡Hola! ¿En qué podemos ayudarte?</p>
+        </div>
+        <div class="chat-footer">
+            <input type="text" placeholder="Escribe un mensaje..." />
+            <button type="submit">Enviar</button>
+        </div>
+    </div>
+</div>
+
+    <!-- Testimonios -->
+    <section class="testimonials">
+        <h2>Lo que Dicen Nuestros Clientes</h2>
+        <div class="testimonial-item">
+            <p>"Excelente servicio, la estilista llegó a tiempo y me encantó el resultado."</p>
+            <h4>María G.</h4>
+        </div>
+        <div class="testimonial-item">
+            <p>"Perfecto para quienes tenemos poco tiempo. Muy recomendado."</p>
+            <h4>Juan P.</h4>
+        </div>
+    </section>
+
+    <!-- Sección de Suscripción al Boletín -->
+<section class="newsletter">
+    <div class="newsletter-container">
+        <h2>Suscríbete a Nuestro Boletín</h2>
+        <p>Recibe las últimas noticias, ofertas y tendencias en belleza directamente en tu bandeja de entrada.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Ingresa tu correo electrónico" required>
+            <button type="submit">Suscribirme</button>
+        </form>
+    </div>
+</section>
+
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h4>Síguenos en Redes Sociales</h4>
+            <a href="#" target="_blank"><img src="images/facebook-icon.png" alt="Facebook" class="social-icon"></a>
+            <a href="#" target="_blank"><img src="images/instagram-icon.png" alt="Instagram" class="social-icon"></a>
+            <a href="#" target="_blank"><img src="images/tiktok-icon.png" alt="TikTok" class="social-icon"></a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Descarga la App</h4>
+            <a href="https://www.apple.com/store" target="_blank"><img src="images/app-store.png" alt="App Store"></a>
+            <a href="https://play.google.com/store" target="_blank"><img src="images/google-play.png" alt="Google Play"></a>
+        </div>
+
+        <div class="footer-section">
+            <h4>Enlaces Rápidos</h4>
+            <ul class="footer-links">
+                <li><a href="#" class="privacy-link">Política de Privacidad</a></li>
+                <li><a href="#" class="terms-link">Términos y Condiciones</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- Popups -->
+    <div class="popup" id="loginPopup">
+        <div class="popup-content">
+            <div class="close-popup" id="closeLoginPopup">&times;</div>
+            <h2>Iniciar Sesión</h2>
+            <input type="email" placeholder="Correo electrónico" />
+            <input type="password" placeholder="Contraseña" />
+            <button>Iniciar Sesión</button>
+        </div>
+    </div>
+
+    <div class="popup" id="registerPopup">
+        <div class="popup-content">
+            <div class="close-popup" id="closeRegisterPopup">&times;</div>
+            <h2>Regístrate</h2>
+            <input type="text" placeholder="Nombre completo" required/>
+            <input type="text" placeholder="Direccion" />
+            <input type="tel" placeholder="Telefono" />
+            <input type="email" placeholder="Correo electrónico"/>
+            <input type="password" placeholder="Contraseña"/>
+            <label for="tipoCuenta">Tipo de cuenta:</label>
+            <select id="tipoCuenta" name="tipoCuenta">
+               <option value="usuario">Usuario</option>
+               <option value="proveedor">Proveedor</option>
+            </select>
+            <button>Regístrate</button>
+        </div>
+    </div>
+
+    <!-- Popup de Oferta -->
+<div id="offerPopup" class="popup-overlay">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <div class="coupon">
+            <h2>¡Oferta Especial!</h2>
+            <p>Obtén un <strong>20% de descuento</strong> en tu primer servicio.</p>
+            <p>Usa el código: <strong>FLASH20</strong></p>
+            <button class="use-offer-btn">Usar Oferta</button>
+        </div>
+    </div>
+</div>
+
+    <script>
+        // Mostrar popups
+        document.getElementById('loginBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.getElementById('loginPopup').style.display = 'flex';
+        });
+
+        document.getElementById('registerBtn').addEventListener('click', function (event) {
+            event.preventDefault();
+            document.getElementById('registerPopup').style.display = 'flex';
+        });
+
+        // Cerrar popups
+        document.getElementById('closeLoginPopup').addEventListener('click', function () {
+            document.getElementById('loginPopup').style.display = 'none';
+        });
+
+        document.getElementById('closeRegisterPopup').addEventListener('click', function () {
+            document.getElementById('registerPopup').style.display = 'none';
+        });
+
+        // Mostrar el popup al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+    const popup = document.getElementById("chatbotPopup");
+    popup.classList.add("show");
+});
+
+// Mostrar y ocultar el popup de chat
+document.getElementById("chatbotButton").addEventListener("click", function() {
+    const chatPopup = document.getElementById("chatPopup");
+    chatPopup.style.display = "flex";
+});
+
+document.getElementById("closeChatPopup").addEventListener("click", function() {
+    const chatPopup = document.getElementById("chatPopup");
+    chatPopup.style.display = "none";
+});
+
+// Mostrar el Popup al hacer clic en el botón de Ofertas
+document.getElementById("offersBtn").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("offerPopup").style.display = "flex";
+});
+
+// Cerrar el Popup al hacer clic en el botón de cerrar
+document.querySelector(".close-btn").addEventListener("click", function() {
+    document.getElementById("offerPopup").style.display = "none";
+});
+
+// Cerrar el Popup al hacer clic fuera de la ventana del popup
+window.addEventListener("click", function(event) {
+    if (event.target == document.getElementById("offerPopup")) {
+        document.getElementById("offerPopup").style.display = "none";
+    }
+});
+
+
+    </script>
+</body>
+</html>
